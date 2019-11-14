@@ -8,7 +8,7 @@ class BankAccount
 
     public void Populate(decimal balance)
     {
-        accNo = nextAccNo;
+        accNo = NextNumber();
         accBal = balance;
         accType = AccountType.Checking;
     }
@@ -36,5 +36,24 @@ class BankAccount
     private static long NextNumber()
     {
         return nextAccNo++;
+    }
+
+    public decimal Deposit(decimal amount)
+    {
+        accBal += amount;
+        return accBal;
+    }
+
+    public bool Withdraw(decimal amount)
+    {
+        if (accBal <  amount)
+        {
+            return false;
+        }
+        else
+        {
+            accBal -= amount;
+            return true;
+        }
     }
 }

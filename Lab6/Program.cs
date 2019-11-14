@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lab6
 {
@@ -11,10 +7,16 @@ namespace Lab6
         static void Main(string[] args)
         {
             BankAccount berts = NewBankAccount();
+            TestDeposit(berts);
+            TestWithdraw(berts);
             Write(berts);
 
             BankAccount freds = NewBankAccount();
+            TestDeposit(freds);
+            TestWithdraw(freds);
             Write(freds);
+
+            Console.WriteLine("Press any key to exit!");
             Console.ReadKey();
         }
 
@@ -24,8 +26,7 @@ namespace Lab6
 
             //Console.Write("Enter the account number   : ");
             //long number = long.Parse(Console.ReadLine());
-
-            long number = BankAccount.NextNumber();
+            //long number = BankAccount.NextNumber();
 
             Console.Write("Enter the account balance! : ");
             decimal balance = decimal.Parse(Console.ReadLine());
@@ -34,7 +35,7 @@ namespace Lab6
             //created.accBal = balance;
             //created.accType = AccountType.Checking;
 
-            created.Populate(number, balance);
+            created.Populate(balance);
 
             return created;
         }
@@ -46,6 +47,19 @@ namespace Lab6
             Console.WriteLine("Account type is {0}", toWrite.Type());
 
         }
-    }
-    
+
+        public static void TestDeposit(BankAccount bankAccount)
+        {
+            Console.Write("Enter amount to deposit: ");
+            decimal amount = decimal.Parse(Console.ReadLine());
+            bankAccount.Deposit(amount);
+        }
+
+        public static void TestWithdraw(BankAccount bankAccount)
+        {
+            Console.Write("Enter amount to withdraw: ");
+            decimal amount = decimal.Parse(Console.ReadLine());
+            if (!(bankAccount.Withdraw(amount))){Console.WriteLine("Insufficient funds.");}
+        }
+    }    
 }
